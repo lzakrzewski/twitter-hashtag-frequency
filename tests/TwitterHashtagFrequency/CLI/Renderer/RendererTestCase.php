@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace tests\TwitterKeywordFrequency\CLI\Renderer;
+namespace tests\TwitterHashtagFrequency\CLI\Renderer;
 
 use Symfony\Component\Console\Output\StreamOutput;
 

@@ -2,19 +2,19 @@
 
 declare (strict_types = 1);
 
-namespace tests\TwitterKeywordFrequency\CLI\Renderer;
+namespace tests\TwitterHashtagFrequency\CLI\Renderer;
 
 use Prophecy\Prophecy\ObjectProphecy;
-use TwitterKeywordFrequency\Application\Projection\TwitterKeywordFrequencyProjection;
-use TwitterKeywordFrequency\Application\Projection\TwitterKeywordFrequencyView;
-use TwitterKeywordFrequency\CLI\Renderer\TwitterKeywordFrequencyRenderer;
+use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyProjection;
+use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyView;
+use TwitterHashtagFrequency\CLI\Renderer\TwitterHashtagFrequencyRenderer;
 
-class TwitterKeywordFrequencyRendererTest extends RendererTestCase
+class TwitterHashtagFrequencyRendererTest extends RendererTestCase
 {
-    /** @var TwitterKeywordFrequencyRenderer */
+    /** @var TwitterHashtagFrequencyRenderer */
     private $renderer;
 
-    /** @var TwitterKeywordFrequencyProjection|ObjectProphecy */
+    /** @var TwitterHashtagFrequencyProjection|ObjectProphecy */
     private $projection;
 
     /** @test */
@@ -23,8 +23,8 @@ class TwitterKeywordFrequencyRendererTest extends RendererTestCase
         $this->projection
             ->get('someAccount')
             ->willReturn([
-                new TwitterKeywordFrequencyView('keyword1', 100),
-                new TwitterKeywordFrequencyView('keyword2', 34),
+                new TwitterHashtagFrequencyView('keyword1', 100),
+                new TwitterHashtagFrequencyView('keyword2', 34),
             ]);
 
         $this->renderer->render('someAccount', $this->output());
@@ -52,8 +52,8 @@ class TwitterKeywordFrequencyRendererTest extends RendererTestCase
     {
         parent::setUp();
 
-        $this->projection = $this->prophesize(TwitterKeywordFrequencyProjection::class);
-        $this->renderer   = new TwitterKeywordFrequencyRenderer($this->projection->reveal());
+        $this->projection = $this->prophesize(TwitterHashtagFrequencyProjection::class);
+        $this->renderer   = new TwitterHashtagFrequencyRenderer($this->projection->reveal());
     }
 
     /** {@inheritdoc} */

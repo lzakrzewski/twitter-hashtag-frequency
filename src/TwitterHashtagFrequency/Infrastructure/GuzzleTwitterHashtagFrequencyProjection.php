@@ -2,14 +2,14 @@
 
 declare (strict_types = 1);
 
-namespace TwitterKeywordFrequency\Infrastructure;
+namespace TwitterHashtagFrequency\Infrastructure;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use TwitterKeywordFrequency\Application\Projection\TwitterKeywordFrequencyProjection;
+use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyProjection;
 
-class GuzzleTwitterKeywordFrequencyProjection implements TwitterKeywordFrequencyProjection
+class GuzzleTwitterHashtagFrequencyProjection implements TwitterHashtagFrequencyProjection
 {
     const OAUTH_CONSUMER_KEY     = 'gWH9q1Hzfn3ibNNRvM5tU7tfw';
     const OAUTH_NONCE            = 'c7b42ad4cbb3d21cbee0c312e73c731e';
@@ -27,18 +27,18 @@ class GuzzleTwitterKeywordFrequencyProjection implements TwitterKeywordFrequency
     }
 
     /** {@inheritdoc} */
-    public function get(string $account) : array
+    public function get(string $screenName) : array
     {
-        $this->request($account);
+        $this->request($screenName);
 
         return [];
     }
 
-    private function request(string $account) : ResponseInterface
+    private function request(string $screenName) : ResponseInterface
     {
         $request = new Request(
             'GET',
-            sprintf('https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=%s&count=2', $account),
+            sprintf('https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=%s&count=2', $screenName),
             [
                 'Authorization' => $this->authorizationHeader(),
             ]

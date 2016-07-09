@@ -4,8 +4,8 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use TwitterKeywordFrequency\CLI\TwitterKeywordFrequencyCommand;
+use TwitterHashtagFrequency\CLI\TwitterHashtagFrequencyCommand;
 
 $application = new Application();
-$application->add(new TwitterKeywordFrequencyCommand());
+$application->add(new TwitterHashtagFrequencyCommand());
 $application->run();

@@ -2,14 +2,14 @@
 
 declare (strict_types = 1);
 
-namespace tests\TwitterKeywordFrequency\Infrastructure;
+namespace tests\TwitterHashtagFrequency\Infrastructure;
 
 use GuzzleHttp\Client;
-use TwitterKeywordFrequency\Infrastructure\GuzzleTwitterKeywordFrequencyProjection;
+use TwitterHashtagFrequency\Infrastructure\GuzzleTwitterHashtagFrequencyProjection;
 
-class GuzzleTwitterKeywordFrequencyProjectionTest extends \PHPUnit_Framework_TestCase
+class GuzzleTwitterHashtagFrequencyProjectionTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var GuzzleTwitterKeywordFrequencyProjection */
+    /** @var GuzzleTwitterHashtagFrequencyProjection */
     private $projection;
 
     /** @test */
@@ -35,7 +35,7 @@ class GuzzleTwitterKeywordFrequencyProjectionTest extends \PHPUnit_Framework_Tes
     /** {@inheritdoc} */
     protected function setUp()
     {
-        $this->projection = new GuzzleTwitterKeywordFrequencyProjection(new Client());
+        $this->projection = new GuzzleTwitterHashtagFrequencyProjection(new Client());
     }
 
     /** {@inheritdoc} */

@@ -2,18 +2,18 @@
 
 declare (strict_types = 1);
 
-namespace TwitterKeywordFrequency\CLI\Renderer;
+namespace TwitterHashtagFrequency\CLI\Renderer;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
-use TwitterKeywordFrequency\Application\Projection\TwitterKeywordFrequencyProjection;
+use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyProjection;
 
-class TwitterKeywordFrequencyRenderer
+class TwitterHashtagFrequencyRenderer
 {
-    /** @var TwitterKeywordFrequencyProjection */
+    /** @var TwitterHashtagFrequencyProjection */
     private $projection;
 
-    public function __construct(TwitterKeywordFrequencyProjection $projection)
+    public function __construct(TwitterHashtagFrequencyProjection $projection)
     {
         $this->projection = $projection;
     }

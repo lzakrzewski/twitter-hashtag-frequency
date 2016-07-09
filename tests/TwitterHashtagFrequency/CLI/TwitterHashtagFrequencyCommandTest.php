@@ -2,16 +2,16 @@
 
 declare (strict_types = 1);
 
-namespace tests\TwitterKeywordFrequency\CLI;
+namespace tests\TwitterHashtagFrequency\CLI;
 
-use TwitterKeywordFrequency\CLI\TwitterKeywordFrequencyCommand;
+use TwitterHashtagFrequency\CLI\TwitterHashtagFrequencyCommand;
 
-class TwitterKeywordFrequencyCommandTest extends CLITestCase
+class TwitterHashtagFrequencyCommandTest extends CLITestCase
 {
     /** @test */
     public function it_returns_0_exit_code_when_successful()
     {
-        $this->executeCommand(new TwitterKeywordFrequencyCommand(), ['account' => 'test-account']);
+        $this->executeCommand(new TwitterHashtagFrequencyCommand(), ['account' => 'test-account']);
 
         $this->assertExitCode(0);
     }
@@ -21,13 +21,13 @@ class TwitterKeywordFrequencyCommandTest extends CLITestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $this->executeCommand(new TwitterKeywordFrequencyCommand(), []);
+        $this->executeCommand(new TwitterHashtagFrequencyCommand(), []);
     }
 
     /** @test */
     public function it_returns_error_exit_code_when_projection_failed()
     {
-        $this->executeCommand(new TwitterKeywordFrequencyCommand(), ['account' => 'something-is-wrong']);
+        $this->executeCommand(new TwitterHashtagFrequencyCommand(), ['account' => 'something-is-wrong']);
 
         $this->assertExitCode(1);
     }

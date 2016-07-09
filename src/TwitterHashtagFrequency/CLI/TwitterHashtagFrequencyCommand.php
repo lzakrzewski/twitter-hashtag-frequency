@@ -2,17 +2,17 @@
 
 declare (strict_types = 1);
 
-namespace TwitterKeywordFrequency\CLI;
+namespace TwitterHashtagFrequency\CLI;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use tests\fixtures\FakeTwitterKeywordFrequencyProjection;
-use TwitterKeywordFrequency\Application\Projection\TwitterKeywordFrequencyProjection;
-use TwitterKeywordFrequency\CLI\Renderer\TwitterKeywordFrequencyRenderer;
+use tests\fixtures\FakeTwitterHashtagFrequencyProjection;
+use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyProjection;
+use TwitterHashtagFrequency\CLI\Renderer\TwitterHashtagFrequencyRenderer;
 
-class TwitterKeywordFrequencyCommand extends Command
+class TwitterHashtagFrequencyCommand extends Command
 {
     /** {@inheritdoc} */
     protected function configure()
@@ -44,15 +44,15 @@ class TwitterKeywordFrequencyCommand extends Command
         return 1;
     }
 
-    private function renderer() : TwitterKeywordFrequencyRenderer
+    private function renderer() : TwitterHashtagFrequencyRenderer
     {
-        return new TwitterKeywordFrequencyRenderer($this->projection());
+        return new TwitterHashtagFrequencyRenderer($this->projection());
     }
 
-    private function projection() : TwitterKeywordFrequencyProjection
+    private function projection() : TwitterHashtagFrequencyProjection
     {
         if ($this->getApplication()->getVersion() == 'debug') {
-            return new FakeTwitterKeywordFrequencyProjection();
+            return new FakeTwitterHashtagFrequencyProjection();
         }
     }
 }

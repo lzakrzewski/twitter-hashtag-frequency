@@ -1,7 +1,7 @@
 {
-  "name": "lzakrzewski/twitter-keyword-frequency",
+  "name": "lzakrzewski/twitter-hashtag-frequency",
   "type": "library",
-  "description": "CLI tool for read frequency of keywords in last 100 tweets from a given account",
+  "description": "CLI tool for read frequency of hashtags in last 100 tweets from a given screen_name",
   "license": "MIT",
   "authors": [
     {
@@ -11,7 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "TwitterKeywordFrequency\\": "src/TwitterKeywordFrequency"
+      "TwitterHashtagFrequency\\": "src/TwitterHashtagFrequency"
     }
   },
   "autoload-dev": {
