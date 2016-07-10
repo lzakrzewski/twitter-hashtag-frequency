@@ -4,14 +4,15 @@ declare (strict_types = 1);
 
 namespace tests\TwitterHashtagFrequency\CLI;
 
-use TwitterHashtagFrequency\CLI\TwitterHashtagFrequencyCommand;
+use tests\fixtures\FakeHashtagProvider;
+use TwitterHashtagFrequency\CLI\HashtagFrequencyCommand;
 
-class TwitterHashtagFrequencyCommandTest extends CLITestCase
+class HashtagFrequencyCommandTest extends CLITestCase
 {
     /** @test */
     public function it_returns_0_exit_code_when_successful()
     {
-        $this->executeCommand(new TwitterHashtagFrequencyCommand(), ['account' => 'test-account']);
+        $this->executeCommand($this->command(), ['screenName' => 'test-account']);
 
         $this->assertExitCode(0);
     }
@@ -21,14 +22,19 @@ class TwitterHashtagFrequencyCommandTest extends CLITestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $this->executeCommand(new TwitterHashtagFrequencyCommand(), []);
+        $this->executeCommand($this->command(), []);
     }
 
     /** @test */
     public function it_returns_error_exit_code_when_projection_failed()
     {
-        $this->executeCommand(new TwitterHashtagFrequencyCommand(), ['account' => 'something-is-wrong']);
+        $this->executeCommand($this->command(), ['screenName' => 'something-is-wrong']);
 
         $this->assertExitCode(1);
+    }
+
+    private function command()
+    {
+        return new HashtagFrequencyCommand(new FakeHashtagProvider());
     }
 }

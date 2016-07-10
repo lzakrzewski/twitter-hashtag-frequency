@@ -2,9 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace TwitterHashtagFrequency\Application\Projection;
+namespace TwitterHashtagFrequency\Projection;
 
-final class TwitterHashtagFrequencyView
+final class HashtagFrequencyView
 {
     /** @var string */
     public $keyword;

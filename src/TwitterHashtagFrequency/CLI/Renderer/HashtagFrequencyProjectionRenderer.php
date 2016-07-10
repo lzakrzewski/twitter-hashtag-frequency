@@ -6,14 +6,14 @@ namespace TwitterHashtagFrequency\CLI\Renderer;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
-use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyProjection;
+use TwitterHashtagFrequency\Projection\HashtagFrequencyProjection;
 
-class TwitterHashtagFrequencyRenderer
+class HashtagFrequencyProjectionRenderer
 {
-    /** @var TwitterHashtagFrequencyProjection */
+    /** @var HashtagFrequencyProjection */
     private $projection;
 
-    public function __construct(TwitterHashtagFrequencyProjection $projection)
+    public function __construct(HashtagFrequencyProjection $projection)
     {
         $this->projection = $projection;
     }
@@ -27,7 +27,7 @@ class TwitterHashtagFrequencyRenderer
 
         if (empty($views)) {
             $output->writeln(
-                sprintf('<info>There is no keywords for an account "%s"</info>', $account)
+                sprintf('<info>There is no keywords for an screen name "%s"</info>', $account)
             );
 
             return;

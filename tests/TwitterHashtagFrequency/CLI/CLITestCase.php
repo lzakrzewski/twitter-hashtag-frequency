@@ -19,7 +19,6 @@ abstract class CLITestCase extends \PHPUnit_Framework_TestCase
     protected function executeCommand(Command $command, $parameters = [])
     {
         $application = new Application();
-        $application->setVersion('debug');
         $application->add($command);
 
         $this->tester = new CommandTester($command);
