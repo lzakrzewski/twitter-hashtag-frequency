@@ -4,8 +4,16 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use TwitterHashtagFrequency\CLI\TwitterHashtagFrequencyCommand;
+use TwitterHashtagFrequency\CLI\HashtagFrequencyCommand;
+use TwitterHashtagFrequency\Infrastructure\GuzzleHashtagProvider;
+use GuzzleHttp\Client;
 
 $application = new Application();
-$application->add(new TwitterHashtagFrequencyCommand());
+$application->add(
+    new HashtagFrequencyCommand(
+        new GuzzleHashtagProvider(
+            new Client()
+        )
+    )
+);
 $application->run();

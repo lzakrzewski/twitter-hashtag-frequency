@@ -5,11 +5,11 @@ declare (strict_types = 1);
 namespace tests\TwitterHashtagFrequency\Infrastructure;
 
 use GuzzleHttp\Client;
-use TwitterHashtagFrequency\Infrastructure\GuzzleTwitterHashtagFrequencyProjection;
+use TwitterHashtagFrequency\Infrastructure\GuzzleHashtagProvider;
 
-class GuzzleTwitterHashtagFrequencyProjectionTest extends \PHPUnit_Framework_TestCase
+class GuzzleHashtagProviderTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var GuzzleTwitterHashtagFrequencyProjection */
+    /** @var GuzzleHashtagProvider */
     private $projection;
 
     /** @test */
@@ -35,7 +35,7 @@ class GuzzleTwitterHashtagFrequencyProjectionTest extends \PHPUnit_Framework_Tes
     /** {@inheritdoc} */
     protected function setUp()
     {
-        $this->projection = new GuzzleTwitterHashtagFrequencyProjection(new Client());
+        $this->projection = new GuzzleHashtagProvider(new Client());
     }
 
     /** {@inheritdoc} */

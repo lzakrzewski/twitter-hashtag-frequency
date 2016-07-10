@@ -7,9 +7,9 @@ namespace TwitterHashtagFrequency\Infrastructure;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use TwitterHashtagFrequency\Application\Projection\TwitterHashtagFrequencyProjection;
+use TwitterHashtagFrequency\HashtagProvider;
 
-class GuzzleTwitterHashtagFrequencyProjection implements TwitterHashtagFrequencyProjection
+class GuzzleHashtagProvider implements HashtagProvider
 {
     const OAUTH_CONSUMER_KEY     = 'gWH9q1Hzfn3ibNNRvM5tU7tfw';
     const OAUTH_NONCE            = 'c7b42ad4cbb3d21cbee0c312e73c731e';
