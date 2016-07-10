@@ -23,7 +23,7 @@ class HashtagFrequencyProjectionRenderer
         $views = $this->projection->get($screenName);
 
         $table = new Table($output);
-        $table->setHeaders(['keyword', 'count']);
+        $table->setHeaders(['hashtag', 'count']);
 
         if (empty($views)) {
             $output->writeln(
@@ -35,7 +35,7 @@ class HashtagFrequencyProjectionRenderer
 
         $output->writeln(
             sprintf(
-                'List of most frequently used #hashtags in latest 100 tweets for screen name "%s":',
+                'List of most frequently used <comment>#hashtags</comment> in latest 100 tweets for screen name <info>"%s"</info>:',
                 $screenName
             )
         );
