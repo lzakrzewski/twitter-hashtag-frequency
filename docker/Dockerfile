@@ -18,7 +18,7 @@ ARG UID
 ARG GID
 ARG UNAME
 
-WORKDIR /var/www/twitter-keyword-frequency
+WORKDIR /var/www/twitter-hashtag-frequency
 
 RUN groupadd -f -g ${GID} ${UNAME} && \
     useradd -d /home/${UNAME} -m -u ${UID} -g ${UNAME} ${UNAME}

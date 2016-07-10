@@ -28,7 +28,7 @@ run-dev:
 	@docker run \
                 --rm \
                 -ti \
-                -v $(ROOT_DIR):/var/www/twitter-keyword-frequency \
+                -v $(ROOT_DIR):/var/www/twitter-hashtag-frequency \
                 -v $(HOME)/.composer:$(CONTAINER_HOME)/.composer \
                 --name php \
                 php \
@@ -38,7 +38,7 @@ run-tests:
 	@docker run \
                 --rm \
                 -ti \
-                -v $(ROOT_DIR):/var/www/twitter-keyword-frequency \
+                -v $(ROOT_DIR):/var/www/twitter-hashtag-frequency \
                 -v $(HOME)/.composer:$(CONTAINER_HOME)/.composer \
                 --name php \
                 php \
@@ -48,7 +48,7 @@ run-tests-ci:
 	@docker run \
                 --rm \
                 -ti \
-                -v $(ROOT_DIR):/var/www/twitter-keyword-frequency \
+                -v $(ROOT_DIR):/var/www/twitter-hashtag-frequency \
                 -v $(HOME)/.composer:$(CONTAINER_HOME)/.composer \
                 --name php \
                 php \
