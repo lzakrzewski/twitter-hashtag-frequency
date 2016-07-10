@@ -5,42 +5,47 @@ declare (strict_types = 1);
 namespace tests\TwitterHashtagFrequency\Infrastructure;
 
 use GuzzleHttp\Client;
+use TwitterHashtagFrequency\HashtagProviderFailed;
 use TwitterHashtagFrequency\Infrastructure\GuzzleHashtagProvider;
 
 class GuzzleHashtagProviderTest extends \PHPUnit_Framework_TestCase
 {
     /** @var GuzzleHashtagProvider */
-    private $projection;
+    private $provider;
 
     /** @test */
-    public function it_gets_twitter_keyword_frequency_views()
+    public function it_hashtags_for_screen_name()
     {
-        $this->markTestIncomplete();
+        $hashtags = $this->provider->get('twitterapi');
+
+        $this->assertNotEmpty($hashtags);
     }
 
     /** @test */
-    public function it_gets_empty_when_no_tweets()
+    public function it_gets_empty_when_no_hashtags_for_screen_name()
     {
-        $views = $this->projection->get('twitterapi');
+        $hashtags = $this->provider->get('EMvLa9mCJGnFvxp');
 
-        $this->assertEmpty($views);
+        $this->assertEmpty($hashtags);
     }
 
     /** @test */
-    public function if_fails_when_connection_failed()
+    public function if_fails_when_unable_to_get_hashtags()
     {
-        $this->markTestIncomplete();
+        $this->expectException(HashtagProviderFailed::class);
+
+        $this->provider->get('not-existing-xyz');
     }
 
     /** {@inheritdoc} */
     protected function setUp()
     {
-        $this->projection = new GuzzleHashtagProvider(new Client());
+        $this->provider = new GuzzleHashtagProvider(new Client());
     }
 
     /** {@inheritdoc} */
     protected function tearDown()
     {
-        $this->projection = null;
+        $this->provider = null;
     }
 }

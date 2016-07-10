@@ -5,18 +5,16 @@ declare (strict_types = 1);
 namespace TwitterHashtagFrequency\Infrastructure;
 
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 use TwitterHashtagFrequency\HashtagProvider;
+use TwitterHashtagFrequency\HashtagProviderFailed;
 
 class GuzzleHashtagProvider implements HashtagProvider
 {
-    const OAUTH_CONSUMER_KEY     = 'gWH9q1Hzfn3ibNNRvM5tU7tfw';
-    const OAUTH_NONCE            = 'c7b42ad4cbb3d21cbee0c312e73c731e';
-    const OAUTH_SIGNATURE        = 'qbza%2BE0oFpeoDGz8nLfNBP%2FOmyg%3D';
-    const OAUTH_SIGNATURE_METHOD = 'HMAC-SHA1';
-    const OAUTH_TOKEN            = '751912533200662528-IJvPu0j4LThIKFvmkD2bjMKWDU05lfH';
-    const OAUTH_VERSION          = '1.0';
+    const API_ENDPOINT = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+    const LIMIT        = 100;
 
     /** @var ClientInterface */
     private $client;
@@ -29,25 +27,31 @@ class GuzzleHashtagProvider implements HashtagProvider
     /** {@inheritdoc} */
     public function get(string $screenName) : array
     {
-        $this->request($screenName);
+        try {
+            $response = $this->request($screenName);
+        } catch (RequestException $e) {
+            throw new HashtagProviderFailed($e->getMessage());
+        }
 
-        return [];
+        return $this->hashTagsFromResponse($response);
     }
 
     private function request(string $screenName) : ResponseInterface
     {
+        $parameters = ['count' => self::LIMIT, 'screen_name' => $screenName];
+
         $request = new Request(
             'GET',
-            sprintf('https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=%s&count=2', $screenName),
+            $this->uri($parameters),
             [
-                'Authorization' => $this->authorizationHeader(),
+                'Authorization' => $this->authorizationHeader($parameters),
             ]
         );
 
         return $this->client->send($request);
     }
 
-    private function authorizationHeader() : string
+    private function authorizationHeader(array $parameters) : string
     {
         $pattern = <<<STR
 OAuth oauth_consumer_key="%s", 
@@ -59,15 +63,55 @@ oauth_token="%s",
 oauth_version="%s"
 STR;
 
+        $oauth = OAuth::build(
+            \ApplicationSettings::CUSTOMER_KEY,
+            \ApplicationSettings::CUSTOMER_SECRET,
+            \ApplicationSettings::ACCESS_TOKEN,
+            \ApplicationSettings::ACCESS_TOKEN_SECRET,
+            $this->uri($parameters)
+        );
+
         return sprintf(
             str_replace(PHP_EOL, '', $pattern),
-            self::OAUTH_CONSUMER_KEY,
-            self::OAUTH_NONCE,
-            self::OAUTH_SIGNATURE,
-            self::OAUTH_SIGNATURE_METHOD,
-            '1468106338',
-            self::OAUTH_TOKEN,
-            self::OAUTH_VERSION
+            $oauth->customerKey(),
+            $oauth->nonce(),
+            $oauth->signature(),
+            $oauth->signatureMethod(),
+            $oauth->timestamp(),
+            $oauth->token(),
+            $oauth->version()
         );
+    }
+
+    private function hashTagsFromResponse(ResponseInterface $response) : array
+    {
+        $contents = json_decode($response->getBody()->getContents(), true);
+
+        $tweetsWithHashTags = array_filter($contents, function (array $tweet) {
+            if (isset($tweet['entities']) && isset($tweet['entities']['hashtags'])) {
+                $hashTagsInfo = $tweet['entities']['hashtags'];
+
+                return !empty($hashTagsInfo);
+            }
+        });
+
+        if (empty($tweetsWithHashTags)) {
+            return [];
+        }
+
+        $hashTags = [];
+
+        foreach ($tweetsWithHashTags as $tweet) {
+            foreach ($tweet['entities']['hashtags'] as $hashtagInfo) {
+                $hashTags[] = $hashtagInfo['text'];
+            }
+        }
+
+        return $hashTags;
+    }
+
+    private function uri(array $parameters) : string
+    {
+        return sprintf('%s?%s', self::API_ENDPOINT, http_build_query($parameters));
     }
 }

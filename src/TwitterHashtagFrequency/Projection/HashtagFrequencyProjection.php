@@ -6,7 +6,6 @@ namespace TwitterHashtagFrequency\Projection;
 
 use TwitterHashtagFrequency\HashtagProvider;
 
-//todo: limit results to 100
 class HashtagFrequencyProjection
 {
     /** @var HashtagProvider */
