@@ -12,7 +12,10 @@
   "autoload": {
     "psr-4": {
       "TwitterHashtagFrequency\\": "src/TwitterHashtagFrequency"
-    }
+    },
+    "files": [
+      "config/ApplicationSettings.php"
+    ]
   },
   "autoload-dev": {
     "psr-4" : {
