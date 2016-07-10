@@ -122,7 +122,7 @@ final class OAuth
         return $uriParts;
     }
 
-    private function oauthSignature(string $baseString) :string
+    private function oauthSignature(string $baseString) : string
     {
         $compositeKey   = rawurlencode($this->customerSecret).'&'.rawurlencode($this->accessTokenSecret);
         $oauthSignature = base64_encode(hash_hmac('sha1', $baseString, $compositeKey, true));

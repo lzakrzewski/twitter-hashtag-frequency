@@ -29,6 +29,9 @@ class HashtagFrequencyProjectionRendererTest extends RendererTestCase
 
         $this->renderer->render('screenName', $this->output());
 
+        $this->assertThatDisplayContains(
+            'List of most frequently used #hashtags in latest 100 tweets for screen name "screenName":'
+        );
         $this->assertThatDisplayContains('keyword1');
         $this->assertThatDisplayContains('keyword2');
         $this->assertThatDisplayContains('100');

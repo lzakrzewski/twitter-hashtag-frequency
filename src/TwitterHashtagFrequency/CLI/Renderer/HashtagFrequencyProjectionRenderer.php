@@ -18,20 +18,27 @@ class HashtagFrequencyProjectionRenderer
         $this->projection = $projection;
     }
 
-    public function render(string $account, OutputInterface $output)
+    public function render(string $screenName, OutputInterface $output)
     {
-        $views = $this->projection->get($account);
+        $views = $this->projection->get($screenName);
 
         $table = new Table($output);
         $table->setHeaders(['keyword', 'count']);
 
         if (empty($views)) {
             $output->writeln(
-                sprintf('<info>There is no keywords for an screen name "%s"</info>', $account)
+                sprintf('<comment>There is no keywords for an screen name "%s"</comment>', $screenName)
             );
 
             return;
         }
+
+        $output->writeln(
+            sprintf(
+                'List of most frequently used #hashtags in latest 100 tweets for screen name "%s":',
+                $screenName
+            )
+        );
 
         foreach ($views as $view) {
             $table->addRow([$view->keyword, $view->count]);
