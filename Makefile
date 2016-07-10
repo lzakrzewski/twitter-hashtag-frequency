@@ -53,3 +53,13 @@ run-tests-ci:
                 --name php \
                 php \
                 /bin/bash -c "composer install && composer test-ci"
+
+hashtag-frequency:
+	@docker run \
+                --rm \
+                -ti \
+                -v $(ROOT_DIR):/var/www/twitter-hashtag-frequency \
+                -v $(HOME)/.composer:$(CONTAINER_HOME)/.composer \
+                --name php \
+                php \
+                /bin/bash -c "composer install && ./bin/console hashtag:frequency $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))"
