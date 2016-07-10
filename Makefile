@@ -54,7 +54,8 @@ run-tests-ci:
                 php \
                 /bin/bash -c "composer install && composer test-ci"
 
-hashtag-frequency:
+hashtag-frequency: \
+    build
 	@docker run \
                 --rm \
                 -ti \
